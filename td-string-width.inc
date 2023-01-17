@@ -2,9 +2,9 @@
 #tryinclude <PawnPlus>
 
 
-static const TDCharacterDefaultWidth[4] = {27, 20, 27, 20};
+static const TDCharacterDefaultWidth[TEXT_DRAW_FONT:__TEXT_DRAW_FONT] = {27, 20, 27, 20, 0, 0};
 
-static const TDCharacterWidth[4][176] = {
+static const TDCharacterWidth[TEXT_DRAW_FONT:__TEXT_DRAW_FONT][176] = {
 	{
 		 0,  12,  12,  12,  12,  12,  12,  12,
 		12,  12,  12,  12,  12,  12,  12,  12,
@@ -97,6 +97,52 @@ static const TDCharacterWidth[4][176] = {
 		19,  19,  19,  29,  19,  19,  19,  19,
 		19,   9,   9,   9,   9,  19,  19,  19,
 		19,  19,  19,  19,  19,  21,  21,  19
+	}, {
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,	
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,	
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,	
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0
+	}, {
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,	
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,	
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,	
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0,
+		 0,  0,  0,  0,  0,  0,  0,  0
 	}
 };
 
@@ -108,8 +154,8 @@ static const TDFont3CharacterInlineWidth[32] = {
 };
 
 
-stock GetTextDrawCharacterWidth(character, font, bool:proportional = true) {
-	if (!(0 <= font <= 3) || !(0 <= character < 176)) {
+stock GetTextDrawCharacterWidth(character, TEXT_DRAW_FONT:font, bool:proportional = true) {
+	if (!(TEXT_DRAW_FONT_0 <= font <= TEXT_DRAW_FONT_3) || !(0 <= character < 176)) {
 		return 0;
 	}
 
@@ -160,7 +206,7 @@ stock GetTextDrawStringWidth(const string[], font, outline = 0, bool:proportiona
 }
 
 
-stock GetTextDrawLineWidth(const string[], font, outline = 0, bool:proportional = true, start = 0, end = -1) {
+stock GetTextDrawLineWidth(const string[], TEXT_DRAW_FONT:font, outline = 0, bool:proportional = true, start = 0, end = -1) {
     new other, width;
 
 	if (end == -1) {
@@ -175,7 +221,7 @@ stock GetTextDrawLineWidth(const string[], font, outline = 0, bool:proportional 
 
             start = other + 1;
         } else {
-            if (font == 3 && (0 < string[start] < 32) && start != end - 1) {
+            if (font == TEXT_DRAW_FONT_3 && (0 < string[start] < 32) && start != end - 1) {
                 width += TDFont3CharacterInlineWidth[string[start]];
             } else {
                 width += GetTextDrawCharacterWidth(string[start], font, proportional);
