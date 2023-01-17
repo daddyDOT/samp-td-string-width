@@ -4,7 +4,8 @@
 	"entry": "test.pwn",
 	"output": "test.amx",
 	"dependencies": [
-		"sampctl/samp-stdlib"
+		"openmultiplayer/omp-stdlib",
+		"pawn-lang/samp-stdlib@open.mp"
 	],
 	"dev_dependencies": [
 		"Zeex/samp-plugin-crashdetect",
